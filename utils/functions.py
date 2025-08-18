@@ -1,5 +1,5 @@
 def aggiungi_studente(lista,nome,cognome):
     try:
         lista.append(nome,cognome)
-    except Exception as e:
-        raise TypeError
+    except TypeError as e:
+        print(f"TypeError occured: {str(e)}. All arguments must be passed to this function in str format")
