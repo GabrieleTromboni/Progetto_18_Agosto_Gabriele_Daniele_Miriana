@@ -2,8 +2,8 @@
 Questo script raccoglie le varie funzioni da richiamare nello script 'student_manager.py'.
 Abbiamo tre differenti funzioni:
     - aggiungi_studente: permette di aggiungere uno studente nel formato (Nome, Cognome) ad una lista presente nel database 'students.py'.
-    - ordina_studenti: permette di ordinare gli studenti presenti nella lista in ordine alfabetico.
-    - cerca_per_nome: 
+    - ordina_studenti: permette di ordinare gli studenti presenti nella lista in ordine alfabetico con priorità al cognome.
+    - cerca_per_nome: permette la ricerca di una qualsiasi stringa data all'interno dei vari nomi degli studenti presenti in uan specifica lista.
 '''
 
 from operator import itemgetter
