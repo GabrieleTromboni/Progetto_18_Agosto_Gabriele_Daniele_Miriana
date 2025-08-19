@@ -1,0 +1,16 @@
+funzione di aggiunta
+METODO PER LA classe
+
+- la classe recupera le liste (students.py)
+
+- caso BASE, una lista e uno studente OK apposto
+- controlla se il nome della lista passato è presente, se non lo è RETRY.
+- richiama direttamente aggiungi_studente
+
+CASO 2
+- se vengono passati più liste insieme? (required list di stringhe)
+- controllo una lista alla volta.
+
+CASO 3 
+- se vengono passati più nomi per una lista sola? (list di stringhe)
+- prendo uno studente alla volta.
