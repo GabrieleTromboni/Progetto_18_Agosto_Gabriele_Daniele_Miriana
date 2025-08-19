@@ -1,69 +1,37 @@
-'''
-Questo è lo script principale per lo svolgimento dell'esercitazione di gruppo del 18 Agosto durante l'AI Academy.
-Deve essere chiamato da terminale e svolgerà le seguenti funzionalità:
-    - aggiunge uno studente ad una lista già esistente.
-    - ordina una lista esistente in ordine alfabetico. Se il cognome corrisponde, ordinerà in base al nome.
-'''
-
 from utils.functions import aggiungi_studente, ordina_studenti, cerca_per_nome
-import utils.students as students
+from utils.students import listaGabriele, listaMiriana, listaDaniele
+from typing import Optional, List, Tuple
 
+class StudentManager:
+    def __init__(self):
+        self.liste = [listaGabriele, listaMiriana, listaDaniele]
 
-def stampa_menu():
-    """Stampa il menu principale dell'applicazione"""
-    print("\n")
-    print(" SISTEMA DI GESTIONE STUDENTI")
-    print("1.  Visualizza tutti gli studenti")
-    print("2.  Aggiungi nuovo studente")  
-    print("3.  Ordina studenti alfabeticamente")
-    print("4.  Cerca studente per nome")
-    print("5.  Esci")
+    def manage_add_student(
+            self,
+            liste: List[str],
+            studenti: List[Tuple[str,str]]
+        ) -> bool:
 
-def ottieni_scelta_menu():
-    """
-    Ottiene e valida la scelta dell'utente dal menu
-    
-    Returns:
-        int: Scelta valida dell'utente (1-5)
-    """
-    while True:
         try:
-            scelta = input("\n Inserisci la tua scelta (1-5): ").strip()
-            if scelta in ['1', '2', '3', '4', '5']:
-                return int(scelta)
-            else:
-                print("Scelta non valida. Inserisci un numero tra 1 e 5.")
-        except ValueError:
-            print("Input non valido. Inserisci un numero.")
-        except KeyboardInterrupt:
-            print("\n\nArrivederci!")
-            return 5
-        
-def gestisci_aggiunta_studente(lista_studenti):
-    """
-    Gestisce l'aggiunta di un nuovo studente
-    
-    Args:
-        lista_studenti (list): Lista degli studenti
-    """
-    print("\nAGGIUNGI NUOVO STUDENTE")
-    print("-" * 30)
-    
-    try:
-        nome = input("Nome: ").strip()
-        if not nome:
-            print("Il nome non può essere vuoto.")
-            return
-        
-        cognome = input(" Cognome: ").strip()
-        if not cognome:
-            print("Il cognome non può essere vuoto.")
-            return
-        
-        if aggiungi_studente(lista_studenti, nome, cognome):
-            print(f"Studente {nome.title()} {cognome.title()} aggiunto con successo!")
-        else:
-            print(f"Lo studente {nome.title()} {cognome.title()} esiste già nella lista.")
-            
-    except KeyboardInterrupt:
-        print("\nOperazione annullata.")
+            for lista in liste:
+                if lista not in self.liste:
+                    print(f"Lista {lista} non trovata, cambia il nome della lista.")
+                else:
+                    for studente in studenti:
+                        if isinstance(studente, tuple) and len(studente) == 2:
+                            nome, cognome = studente
+                            if isinstance(nome, str) and isinstance(cognome, str):
+                                aggiungi_studente(lista, nome, cognome)
+                            else:
+                                print(f"Studente {studente} non valido. Deve essere una tupla di due stringhe.")
+            return True
+        except Exception as e:
+            print(f"Errore durante l'aggiunta dello studente: {e}")
+        return False
+
+    def ordina_studenti(self):
+        self.lista_studenti.sort(key=lambda x: (x["cognome"], x["nome"]))
+
+    def cerca_per_nome(self, nome):
+        risultati = [s for s in self.lista_studenti if s["nome"].lower() == nome.lower()]
+        return risultati
