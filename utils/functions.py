@@ -1,3 +1,6 @@
+from operator import itemgetter
+
+
 '''
 Questo script raccoglie le varie funzioni da richiamare nello script 'student_manager.py'.
 Abbiamo tre differenti funzioni:
@@ -29,3 +32,11 @@ def aggiungi_studente(
         lista.append(nome,cognome)
     except TypeError as e:
         print(f"TypeError occured: {str(e)}. All arguments must be passed to this function in str format")
+
+
+def ordina_studenti(lista):
+    return sorted(lista, key=itemgetter(1,0))
+
+def cerca_per_nome(lista, stringa):
+    studenti = [(nome,cognome) for nome, cognome in lista if stringa.lower() in nome.lower()]
+    return (True, studenti) if studenti else False
